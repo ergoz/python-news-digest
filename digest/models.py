@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-
+from concurrency.fields import IntegerVersionField
 
 ISSUE_STATUS_CHOICES = (
     ('active', u'Активный'),
@@ -21,6 +21,7 @@ class Issue(models.Model):
         null=True, blank=True,
     )
     image = models.ImageField(
+        verbose_name=u'Постер',
         upload_to='issues',
         null=True, blank=True,
     )
@@ -42,6 +43,7 @@ class Issue(models.Model):
         choices=ISSUE_STATUS_CHOICES,
         default='draft',
     )
+    version = IntegerVersionField()
 
     def __unicode__(self):
         return self.title
@@ -75,6 +77,7 @@ class Section(models.Model):
         choices=SECTION_STATUS_CHOICES,
         default='active',
     )
+    version = IntegerVersionField()
 
     def __unicode__(self):
         return self.title
@@ -100,6 +103,7 @@ class Resource(models.Model):
         max_length=255,
         verbose_name=u'Ссылка',
     )
+    version = IntegerVersionField()
 
     def __unicode__(self):
         return self.title
@@ -176,6 +180,7 @@ class Item(models.Model):
         verbose_name=u'Приоритет при показе',
         default=0,
     )
+    version = IntegerVersionField()
 
     def __unicode__(self):
         return self.title
